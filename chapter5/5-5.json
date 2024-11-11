@@ -1,0 +1,32 @@
+{
+    "tools": [
+        {
+            "toolSpec": {
+                "name": "generate_qr",
+                "description": "주어진 URL로 부터 QR code 생성.",
+                "inputSchema": {
+                    "json": {
+                        "type": "object",
+                        "properties": {
+                            "url": {
+                                "type": "string",
+                                "description": "QR code로 변경할 URL"
+                            },
+                            "size": {
+                                "type": "integer",
+                                "description": "QR code 이미지의 크기 (옵션, 기본값 6)."
+                            },
+                            "transparent": {
+                                "type": "boolean",
+                                "description": "투명한 QR code 생성 여부 (옵션, 기본값 false)."
+                            }
+                        },
+                        "required": [
+                            "url"
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}

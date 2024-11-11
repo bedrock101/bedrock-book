@@ -1,0 +1,19 @@
+[
+    {
+       "AllowedHeaders":[
+          "*"
+       ],
+       "AllowedMethods":[
+          "GET",
+          "PUT",
+          "POST",
+          "DELETE"
+       ],
+       "AllowedOrigins":[
+          "*"
+       ],
+       "ExposeHeaders":[
+          "Access-Control-Allow-Origin"
+       ]
+    }
+ ]

@@ -1,0 +1,15 @@
+{
+    "modelInput": {
+        "inputImage": "Your Image Data",
+        "embeddingConfig": {
+            "outputEmbeddingLength": 256
+        }
+    },
+    "modelOutput": {
+        "embedding": [
+            0.00902303
+        ],
+        "inputTextTokenCount": 0
+    },
+    "recordId": "1"
+}

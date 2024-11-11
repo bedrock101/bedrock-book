@@ -1,0 +1,13 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowInvokeAgent",
+            "Effect": "Allow",
+            "Action": "bedrock:InvokeAgent",
+            "Resource": [
+                "arn:aws:bedrock:us-west-2:012345678912:agent-alias/AGENT01234/ALIAS01234"
+            ]
+        }
+    ]
+}

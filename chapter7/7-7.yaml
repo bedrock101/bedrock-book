@@ -1,0 +1,12 @@
+evaluator:
+  model: claude-3
+target:
+  type: bedrock-agent
+  bedrock_agent_id: ABCDEF0123
+  bedrock_agent_alias_id: AGENTALIAS
+tests:
+  retrieve_missing_documents:
+    steps:
+    - Ask the agent for the evaluation results for your blog post URL www.example.com
+    expected_results:
+    - The agent returns a string of the evaluation results.

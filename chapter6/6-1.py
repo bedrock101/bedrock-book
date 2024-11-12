@@ -28,13 +28,13 @@ def process_folder(input_folder, output_file, image_ref_prefix):
 # 훈련용 데이터 처리
 train_input_folder = './Webtoon/Training/Label/Sports'
 train_output_file = 'train_output.jsonl'
-train_image_ref_prefix = 's3://custom-image-generator/Webtoon/Training/Raw/Sports'
+train_image_ref_prefix = 's3://{YOUR BUCKET NAME}/Webtoon/Training/Raw/Sports'
 
 process_folder(train_input_folder, train_output_file, train_image_ref_prefix)
 
 # 검증용 데이터 처리
 val_input_folder = './Webtoon/Validation/Label/Sports'
 val_output_file = 'val_output.jsonl'
-val_image_ref_prefix = 's3://custom-image-generator/Webtoon/Validation/Raw/Sports'
+val_image_ref_prefix = 's3://{YOUR BUCKET NAME}/Webtoon/Validation/Raw/Sports'
 
 process_folder(val_input_folder, val_output_file, val_image_ref_prefix)

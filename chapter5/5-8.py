@@ -3,8 +3,12 @@ import urllib.request
 from bs4 import BeautifulSoup 
 import html
 
-def get_article_body(url: str) -> str:
-    encoded_url = urllib.parse.quote(url, safe=':/?=&')
+def get_article_text(url: str) -> str:
+    if any(ord(char) > 127 for char in url):
+        encoded_url = urllib.parse.quote(url, safe=':/?=&')
+    else:
+        encoded_url = url
+        
     req = urllib.request.Request(encoded_url, headers={'User-Agent': 'Mozilla/5.0'})
     with urllib.request.urlopen(req) as response:
         html_doc = response.read()
@@ -25,7 +29,7 @@ def lambda_handler(event, context):
 
     if function == 'evaluate_article':
         url = next((item['value'] for item in event['parameters'] if item['name'] == 'url'), '')
-        body = {'body': get_article_body(url)}
+        body = {'body': get_article_text(url)}
 
     responseBody = {
         "TEXT": {

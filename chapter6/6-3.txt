@@ -1,1 +1,0 @@
-<s>[INST] <<SYS>> You are a senior software engineer. Write answers to the following instruction in code without preamble. <</SYS>> Write a Python lambda function to stop EC2 on AWS with the function name lambda_handler.[/INST]

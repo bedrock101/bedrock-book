@@ -1,0 +1,5 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Environment: ipython<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Write code to check if number is prime, use that to see if the number 7 is prime<|eot_id|><|start_header_id|>assistant<|end_header_id|>

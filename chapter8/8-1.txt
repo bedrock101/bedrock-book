@@ -1,0 +1,5 @@
+다음은 {{source_lang}} 에서 {{target_lang}} 로의 번역 작업입니다. 주어진 텍스트를 {{target_lang}} 으로 번역해주세요.
+
+<SOURCE_TEXT>
+{{input}}
+</SOURCE_TEXT>

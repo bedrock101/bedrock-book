@@ -5,7 +5,7 @@ import html
 
 def get_article_text(url: str) -> str:
     if any(ord(char) > 127 for char in url):
-        encoded_url = urllib.parse.quote(url, safe=':/?=&')
+        encoded_url = urllib.parse.quote(url, safe=':/?=&@')
     else:
         encoded_url = url
         

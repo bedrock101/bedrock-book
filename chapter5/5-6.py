@@ -1,4 +1,4 @@
-import logging, json, boto3
+import logging, boto3, requests, os
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -13,6 +13,20 @@ def generate_qr_code(url, size=6, transparent=False):
     qr_url = f"{base_url}_{size}.png?url={url}"
     
     return qr_url
+
+def download_qr_image(qr_url, output_path="qr_code.png"):
+    """QR 코드 이미지를 다운로드합니다."""
+    try:
+        response = requests.get(qr_url)
+        response.raise_for_status()  # HTTP 오류가 발생하면 예외 발생
+        
+        with open(output_path, 'wb') as f:
+            f.write(response.content)
+        
+        return os.path.abspath(output_path)
+    except Exception as e:
+        logger.error(f"QR 코드 다운로드 실패: {str(e)}")
+        raise
     
 def generate_text(bedrock_client, model_id, tool_config, input_text):
     """제공된 Amazon Bedrock 모델을 사용하여 텍스트를 생성합니다.
@@ -51,10 +65,22 @@ def generate_text(bedrock_client, model_id, tool_config, input_text):
                             tool['input'].get('size', 6),
                             tool['input'].get('transparent', False)
                         )
+                        
+                        # QR 코드 이미지를 로컬에 다운로드
+                        url_filename = tool['input']['url'].replace('https://', '').replace('http://', '').replace('/', '_')
+                        output_filename = f"qr_{url_filename}.png"
+                        local_path = download_qr_image(qr_url, output_filename)
+                        
                         tool_result = {
                             "toolUseId": tool['toolUseId'],
                             "content": [{"text": f"QR code generated: {qr_url}"}]
                         }
+                        
+                        # QR 코드 URL과 로컬 저장 경로를 출력
+                        print("\n=== QR 코드가 생성되었습니다 ===")
+                        print(f"QR 코드 URL: {qr_url}")
+                        print(f"QR 코드가 로컬에 저장되었습니다: {local_path}")
+                        
                     except Exception as err:
                         tool_result = {
                             "toolUseId": tool['toolUseId'],
@@ -80,7 +106,8 @@ def generate_text(bedrock_client, model_id, tool_config, input_text):
                     output_message = response['output']['message']
 
     for content in output_message['content']:
-        print(json.dumps(content, indent=4))
+        if 'text' in content:
+            print(content['text'])
 
 def main():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -130,9 +157,6 @@ def main():
         message = err.response['Error']['Message']
         logger.error("A client error occurred: %s", message)
         print(f"A client error occurred: {message}")
-
-    else:
-        print(f"Finished generating text with model {model_id}.")
 
 if __name__ == "__main__":
     main()
